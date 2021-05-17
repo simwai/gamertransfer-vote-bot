@@ -1,5 +1,5 @@
 {
-  "name": "instagram-saved-images-downloader",
+  "name": "gamertransfer-vote-bot,
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -23,6 +23,6 @@
     "stop-debug": "taskkill /F /IM node.exe",
     "lint": "eslint ./*"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "simwai",
+  "license": "CC BY-NC-SA"
 }
