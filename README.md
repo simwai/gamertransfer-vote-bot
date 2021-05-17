@@ -6,7 +6,7 @@ Automatically votes for your gaming community on GamerTransfer.
 
 1. Run git clone https://github.com/simwai/gamertransfer-vote-bot in your command line.
 2. Create a config.js file from the config.example.js file and enter your credentials.
-3. Run npm start
+3. Run npm run-script run
 
 The bot will run every 4 hours beginning at 01:00 AM.
 
