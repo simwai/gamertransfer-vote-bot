@@ -1,9 +1,15 @@
 const { chromium } = require('playwright')
+const { parentPort } = require('worker_threads')
 const randomUseragent = require('random-useragent')
 const useragent = randomUseragent.getRandom()
+
 const config = require('../config')
 
 async function run () {
+  parentPort.once('message', message => {
+    if (message === 'cancel') return cancel()
+  })
+
   console.log('started')
 
   try {
@@ -47,6 +53,16 @@ async function run () {
   }
 
   console.log('success')
+}
+
+function cancel () {
+  // do cleanup here
+  // (if you're using @ladjs/graceful, the max time this can run by default is 5s)
+
+  // send a message to the parent that we're ready to terminate
+  // (you could do `process.exit(0)` or `process.exit(1)` instead if desired
+  // but this is a bit of a cleaner approach for worker termination
+  parentPort.postMessage('cancelled')
 }
 
 (async () => await run())()
