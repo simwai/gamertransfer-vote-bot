@@ -1,20 +1,21 @@
-const Cabin = require('cabin')
-const Bree = require('bree')
-const Graceful = require('@ladjs/graceful')
+const Queue = require('bull')
+const bot = require('./bot')
 
-const bree = new Bree({
-  logger: new Cabin(),
-  jobs: [
-    {
-      name: 'bot',
-      interval: '4h'
-    }
-  ]
+const voteQueue = new Queue('start vote bot')
+
+voteQueue.on('error', (error) => {
+  console.log('vote queue error: ', error)
 })
 
-// handle graceful reloads, pm2 support, and events like SIGHUP, SIGINT, etc.
-const graceful = new Graceful({ brees: [bree] })
-graceful.listen()
+voteQueue.on('completed', () => {
+  console.log('vote queue completed')
+})
 
-// start all jobs (this is the equivalent of reloading a crontab):
-bree.start()
+voteQueue.process(async function () {
+  console.log('job triggered')
+  return bot.run()
+})
+
+// run job every four hours (every 240 minutes)
+// voteQueue.add({}, { repeat: { cron: '*/240 * * * *' } })
+voteQueue.add({})
