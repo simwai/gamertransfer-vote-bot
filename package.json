@@ -18,7 +18,7 @@
   },
   "scripts": {
     "start-redis-windows": "cd ./redis-server-windows && redis-server.exe --port 6378",
-    "start-redis-ubuntu": "cd ./redis-server-ubuntu && ./redis-server",
+    "start-redis-ubuntu": "cd ./redis-server-ubuntu && redis-server",
     "run": "node index.js",
     "debug": "node --inspect --trace-warnings index.js",
     "always-debug": "nodemon --inspect --trace-warnings index.js",
