@@ -1,7 +1,7 @@
 const Queue = require('bull')
 const bot = require('./bot')
 
-const voteQueue = new Queue('start vote bot')
+const voteQueue = new Queue('start vote bot', 'redis://127.0.0.1:6378')
 
 voteQueue.on('error', (error) => {
   console.log('vote queue error: ', error)
