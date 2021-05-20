@@ -1,21 +1,10 @@
-const Queue = require('bull')
-const bot = require('./bot')
+const bot = require('./bot');
 
-const voteQueue = new Queue('start vote bot', 'redis://127.0.0.1:6378')
+(async () => {
+  await bot.run()
+})()
 
-voteQueue.on('error', (error) => {
-  console.log('vote queue error: ', error)
-})
-
-voteQueue.on('completed', () => {
-  console.log('vote queue completed')
-})
-
-voteQueue.process(async function () {
-  console.log('job triggered')
-  return bot.run()
-})
-
-// run job every four hours (every 240 minutes)
-// voteQueue.add({}, { repeat: { cron: '*/240 * * * *' } })
-voteQueue.add({})
+setInterval(async () => {
+  await bot.run()
+  // 4 hours * 60 mins * 60 s * 1000 ms
+}, 4 * 60 * 60 * 1000)
