@@ -7,10 +7,13 @@ const config = require('./config')
 async function run () {
   console.log('bot run() started')
 
+  let browser
+
   try {
-    const browser = await chromium.launch({ headless: true, userAgent: useragent })
+    browser = await chromium.launch({ headless: true, userAgent: useragent })
     const context = await browser.newContext()
     const page = await context.newPage()
+
     await page.goto('https://gamertransfer.com/dashboard.html?m=17')
 
     await page.waitForTimeout(3000)
@@ -41,7 +44,11 @@ async function run () {
     await page.waitForTimeout(1500)
 
     await page.click('.col-md-2.col-6')
+
+    browser.close()
   } catch (error) {
+    browser.close()
+
     console.log('failed')
     console.log(error)
     return
