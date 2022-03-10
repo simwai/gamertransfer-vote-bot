@@ -1,3 +1,4 @@
 node_modules
 .env
 my_screenshot.png
+config.js
