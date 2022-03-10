@@ -1,7 +1,4 @@
 node_modules
 .env
-my_screenshot.png
-<<<<<<< HEAD
 config.js
-=======
->>>>>>> ab41956dcada47f477ae738e7dd29526f8809e6a
+my_screenshot.png
