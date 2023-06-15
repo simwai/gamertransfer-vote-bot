@@ -5,19 +5,19 @@ const useragent = randomUseragent.getRandom()
 const config = require('./config')
 
 async function run () {
-  console.log('bot run() started')
-
+  console.log('Bot run started')
+  
   let browser
 
   try {
-    browser = await chromium.launch({ headless: true, userAgent: useragent })
+    browser = await chromium.launch({ headless: false, userAgent: useragent })
     const context = await browser.newContext()
     const page = await context.newPage()
 
     await page.goto('https://gamertransfer.com/dashboard.html?m=17')
 
     await page.waitForTimeout(3000)
-
+    
     await page.click('text=einloggen')
     await page.waitForTimeout(3000)
 
@@ -27,13 +27,19 @@ async function run () {
     await page.fill(':nth-match(input, 2)', config.password)
 
     await page.waitForTimeout(3000)
-    await page.click('text=Log in')
 
+    try {
+      await page.click('text=Anmelden')
+    } catch (error) {
+      await page.click('text=Log in')
+      console.error("Couldn't click login button\n", error)
+    }
+    
     await page.waitForTimeout(1500)
     const loginFailed = await page.$('text=Fehler: E-Mail oder Passwort falsch')
 
     if (loginFailed) {
-      console.log('login failed')
+      console.error('Login failed\n', error)
       return
     }
 
@@ -44,17 +50,16 @@ async function run () {
     await page.waitForTimeout(1500)
     
     await page.click('.col-md-2.col-6')
-
+    
     await browser.close()
   } catch (error) {
     await browser?.close()
     
-    console.log('failed')
-    console.log(error)
+    console.error('Bot run failed\n', error)
     return
   }
-
-  console.log('bot run() success')
+  
+  console.log('Bot run successfully finished')
 }
 
 module.exports = {
