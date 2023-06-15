@@ -42,13 +42,13 @@ async function run () {
 
     await page.click('.push')
     await page.waitForTimeout(1500)
-
+    
     await page.click('.col-md-2.col-6')
 
-    browser.close()
+    await browser.close()
   } catch (error) {
-    browser.close()
-
+    await browser?.close()
+    
     console.log('failed')
     console.log(error)
     return
