@@ -10,7 +10,7 @@ async function run () {
   let browser
 
   try {
-    browser = await chromium.launch({ headless: false, userAgent: useragent })
+    browser = await chromium.launch({ headless: true, userAgent: useragent })
     const context = await browser.newContext()
     const page = await context.newPage()
 
