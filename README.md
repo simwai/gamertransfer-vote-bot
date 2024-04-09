@@ -2,7 +2,7 @@
 
 Automatically votes for your gaming community on GamerTransfer.
 
-# Getting Start
+# Getting Started
 
 1. Run git clone https://github.com/simwai/gamertransfer-vote-bot in your command line.
 2. Create a config.js file from the config.example.js file and enter your credentials.
